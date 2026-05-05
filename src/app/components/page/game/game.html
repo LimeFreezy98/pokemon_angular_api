@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h1>Pokémon Memory Game</h1>
+    <p>Moves: {{ moves }} | Matches: {{ matches }}/8</p>
+    <button class="btn btn-primary" (click)="resetGame()">New Game</button>
+
+  </div>
+
+  <div class="game-board">
+    <div *ngFor="let card of cards" 
+         class="card-container"
+         (click)="flipCard(card)">
+      <div class="card" 
+           [class.flipped]="card.flipped || card.matched"
+           [class.matched]="card.matched">
+        <div class="card-front">
+          <img [src]="card.image" [alt]="card.name">
+        </div>
+        <div class="card-back">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="pokeball">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

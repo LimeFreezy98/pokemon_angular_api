@@ -18,15 +18,3 @@ export class PokemonService {
     return this.http.get(`${this.apiUrl}/pokemon/${nameOrId}`);
   }
 }
-
-export class PokemonApi {
-  constructor(private pokemonService: PokemonService) {}
-
-  getPokemonList(limit: number) {
-    return this.pokemonService.getPokemonList(limit);
-  }
-
-  getPokemon(nameOrId: string | number) {
-    return this.pokemonService.getPokemon(nameOrId);
-  }
-}
