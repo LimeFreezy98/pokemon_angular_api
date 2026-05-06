@@ -36,6 +36,9 @@ export class MultiplayerGameComponent implements OnInit {
   gameOver: boolean = false;
   playerCount: number = 2;
   playerNames: string[] = ['Player 1', 'Player 2'];
+  trackByIndex(index: number) {
+    return index;
+  }
 
   private playerColors: string[] = ['#007bff', '#28a745', '#ffc107', '#dc3545'];
 
