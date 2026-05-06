@@ -1,1 +1,26 @@
-<p>stats works!</p>
+@if (!loading && userData) {
+
+    <h2>{{ userData.name }}'s Stats</h2>
+  
+    <p><strong>Games Played:</strong> {{ userData.gamesPlayed }}</p>
+    <p><strong>Wins:</strong> {{ userData.wins }}</p>
+    <p><strong>Losses:</strong> {{ userData.losses }}</p>
+  
+    <h3>Players You Beat</h3>
+    <ul>
+      @for (player of userData.beatenPlayers; track player) {
+        <li>{{ player }}</li>
+      }
+    </ul>
+  
+    <h3>Players You Lost To</h3>
+    <ul>
+      @for (player of userData.lostToPlayers; track player) {
+        <li>{{ player }}</li>
+      }
+    </ul>
+  
+  } 
+  @else {
+    <p>Loading stats...</p>
+  }
