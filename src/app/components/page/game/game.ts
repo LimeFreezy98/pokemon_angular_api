@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PokemonService } from '../../../pokemon-api';
 
 interface Card {
@@ -13,7 +14,7 @@ interface Card {
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './game.html',
   styleUrls: ['./game.css'],
 })
@@ -22,6 +23,7 @@ export class GameComponent implements OnInit {
   flippedCards: Card[] = [];
   moves: number = 0;
   matches: number = 0;
+  gameStarted: boolean = true;
 
   constructor(
     private pokemonService: PokemonService,

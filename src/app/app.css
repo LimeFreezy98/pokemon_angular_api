@@ -1,0 +1,13 @@
+.main-content {
+  padding-top: 20px;
+  min-height: calc(100vh - 56px);
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
