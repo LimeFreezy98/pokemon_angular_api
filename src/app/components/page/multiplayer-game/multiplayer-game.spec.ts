@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { Game } from './game';
+import { MultiplayerGameComponent } from './multiplayer-game';
 
-describe('Game', () => {
-  let component: Game;
-  let fixture: ComponentFixture<Game>;
+describe('MultiplayerGame', () => {
+  let component: MultiplayerGameComponent;
+  let fixture: ComponentFixture<MultiplayerGameComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Game],
-      providers: [provideHttpClient()]
+      imports: [MultiplayerGameComponent],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Game);
+    fixture = TestBed.createComponent(MultiplayerGameComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <div *ngIf="!gameStarted" class="setup-screen">
+    <h1 class="text-center mb-4">Multiplayer Pokémon Memory Game</h1>
+    
+    <div class="card p-4 mx-auto" style="max-width: 500px;">
+      <h3>Game Setup</h3>
+      
+      <div class="mb-3">
+        <label class="form-label">Number of Players: {{ playerCount }}</label>
+        <div class="btn-group d-block">
+          <button class="btn btn-outline-primary" (click)="removePlayer()" [disabled]="playerCount <= 2">-</button>
+          <button class="btn btn-outline-primary" (click)="addPlayer()" [disabled]="playerCount >= 4">+</button>
+        </div>
+      </div>
+
+      <div class="mb-3" *ngFor="let name of playerNames; let i = index; trackBy: trackByIndex">
+        <label class="form-label">Player {{ i + 1 }} Name:</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          [(ngModel)]="playerNames[i]"
+          [id]="'player-' + i"
+          [name]="'player-' + i"
+          [attr.autocomplete]="'off'" 
+          placeholder="Enter player name">
+          
+      </div>
+
+      <button class="btn btn-primary btn-lg w-100" (click)="setupGame()">
+        Start Game
+      </button>
+    </div>
+  </div>
+  <div *ngIf="gameStarted">
+    <div class="row mb-4">
+      <div class="col" *ngFor="let player of players">
+        <div class="card text-center" 
+             [class.border-primary]="player.isActive"
+             [class.border-3]="player.isActive">
+          <div class="card-body">
+            <h5 class="card-title">{{ player.name }}</h5>
+            <p class="card-text fs-3">{{ player.score }} matches</p>
+            <span *ngIf="player.isActive" class="badge bg-primary">Current Turn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-3" *ngIf="!gameOver">
+      <h4>{{ players[currentPlayerIndex].name }}'s Turn</h4>
+    </div>
+
+    <div class="text-center mb-3" *ngIf="gameOver">
+      <h3 class="text-success">Game Over!</h3>
+      <button class="btn btn-primary" (click)="resetGame()">New Game</button>
+    </div>
+
+    <div class="game-board">
+      <div *ngFor="let card of cards" 
+           class="card-container"
+           (click)="flipCard(card)">
+        <div class="card" 
+             [class.flipped]="card.flipped || card.matched"
+             [class.matched]="card.matched"
+             [style.border-color]="card.matched && players[card.matchedBy!] ? getPlayerColor(card.matchedBy!) : ''">
+          <div class="card-front">
+            <img [src]="card.image" [alt]="card.name">
+          </div>
+          <div class="card-back">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="pokeball">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
