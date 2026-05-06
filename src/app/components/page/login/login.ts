@@ -51,7 +51,7 @@ export class Login {
     }
 
     // 👉 Navigate AFTER everything is done
-    this.router.navigate(['/stats']);
+    this.router.navigate(['/game-setup']);
 
   } catch (err) {
     console.error('Login failed:', err);
