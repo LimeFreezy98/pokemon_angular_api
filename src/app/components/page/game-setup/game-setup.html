@@ -1,24 +1,26 @@
 <h2>Game Setup</h2>
 
 
-<label> Number of Players</label>
+<!-- <label> Number of Players</label>
 <select [(ngModel)]="playersCount">
     <option *ngFor="let n of [1,2,3,4]" [value]="n">{{ n }}</option>
   </select>
   
-  <br><br>
+  <br><br> -->
   
-  <label>Number of Matches:</label>
+  <!-- <label>Number of Matches:</label>
   <input type="number" [(ngModel)]="matches" min="2">
   
   <br><br>
   
   <label>Pokémon Card Set:</label>
   <input type="text" [(ngModel)]="selectedSet" placeholder="e.g. base1">
-  
+   -->
   <br><br>
   
-  <button (click)="startGame()">Start Single Player</button>
+  <!-- <button (click)="startGame()">Start Single Player</button> -->
+
+  <button (click)="startSinglePlayer()">Single Player</button>
   
   <br><br>
 
