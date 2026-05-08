@@ -1,0 +1,104 @@
+.card {
+  border: none;
+  border-radius: 15px;
+}
+
+.pokeball-spin {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.player-card,
+.set-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  height: 100%;
+}
+
+.player-card:hover,
+.set-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #0d6efd;
+}
+
+.player-card.selected,
+.set-card.selected {
+  border-color: #0d6efd;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.player-card.selected h5,
+.player-card.selected small,
+.set-card.selected h6,
+.set-card.selected small {
+  color: white !important;
+}
+
+.player-icon,
+.set-icon {
+  font-size: 2rem;
+}
+
+.input-group-lg .form-control {
+  font-size: 1.5rem;
+  height: 60px;
+}
+
+.input-group-lg .btn {
+  width: 60px;
+  font-size: 1.25rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(17, 153, 142, 0.4);
+}
+
+.btn-outline-info {
+  border: 2px solid #0dcaf0;
+  color: #0dcaf0;
+  font-weight: bold;
+  padding: 15px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-info:hover {
+  background: #0dcaf0;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.alert-light {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border: 1px solid #667eea30;
+  border-radius: 10px;
+  font-size: 1.1rem;
+}

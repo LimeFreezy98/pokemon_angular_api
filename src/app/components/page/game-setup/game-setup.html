@@ -1,31 +1,65 @@
-<h2>Game Setup</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <img 
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" 
+              alt="Pokeball" 
+              width="80" 
+              class="mb-3 pokeball-spin">
+            <h1 class="display-5 fw-bold text-primary">Game Setup</h1>
+            <p class="text-muted">Configure your Pokémon memory match game</p>
+          </div>
 
+          <div class="mb-4">
+            <label class="form-label fw-bold text-secondary">
+              <i class="bi bi-people-fill"></i> Number of Players
+            </label>
+            <div class="row g-3">
+              <div *ngFor="let n of [1,2,3,4]" class="col-3">
+                <div class="card player-card" 
+                     [class.selected]="playersCount === n"
+                     (click)="playersCount = n"
+                     role="button">
+                  <div class="card-body text-center p-3">
+                    <div class="player-icon mb-2">
+                      {{ n === 1 ? '👤' : n === 2 ? '👥' : n === 3 ? '👨‍👩‍👦' : '👨‍👩‍👧‍👦' }}
+                    </div>
+                    <h5 class="mb-0">{{ n }}</h5>
+                    <small class="text-muted">{{ n === 1 ? 'Solo' : 'Players' }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<label> Number of Players</label>
-<select [(ngModel)]="playersCount">
-    <option *ngFor="let n of [1,2,3,4]" [value]="n">{{ n }}</option>
-  </select>
-  
-  <br><br>
-  
-  <label>Number of Matches:</label>
-  <input type="number" [(ngModel)]="matches" min="2">
-  
-  <br><br>
-  
-  <label>Pokémon Card Set:</label>
-  <input type="text" [(ngModel)]="selectedSet" placeholder="e.g. base1">
-  
-  <br><br>
-  
-  <button (click)="startGame()">Start Single Player</button>
-  
-  <br><br>
+          <div class="d-grid gap-3 mt-4">
+            <button 
+              class="btn btn-primary btn-lg fw-bold"
+              (click)="startGame()">
+              <i class="bi bi-play-circle-fill"></i> Start Single Player
+            </button>
 
-<button (click)="goToMultiplayer()">Multiplayer Game</button>
+            <button 
+              class="btn btn-success btn-lg fw-bold"
+              (click)="goToMultiplayer()">
+              <i class="bi bi-people-fill"></i> Start Multiplayer
+            </button>
 
+            <button 
+              class="btn btn-outline-info btn-lg"
+              (click)="goToStats()">
+              <i class="bi bi-bar-chart-fill"></i> View Stats
+            </button>
 
-
-  <br><br>
-
-<button (click)="goToStats()">View Stats</button>
+            <a routerLink="/" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left"></i> Back to Home
+            </a>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

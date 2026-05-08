@@ -1,11 +1,10 @@
 <div class="container mt-4">
   <div class="text-center mb-3" *ngIf="!gameStarted">
-    <button class="btn btn-outline-primary" routerLink="/game">
-      Switch to Single Player Mode
+    <button class="btn btn-outline-primary" routerLink="/multiplayer">
+      Switch to Multiplayer Mode
     </button>
   </div>
 
-<div class="container mt-4">
   <div class="text-center mb-4">
     <h1>Pokémon Memory Game</h1>
     <p>Moves: {{ moves }} | Matches: {{ matches }}/8</p>
