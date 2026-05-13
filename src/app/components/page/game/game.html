@@ -20,7 +20,16 @@
            [class.flipped]="card.flipped || card.matched"
            [class.matched]="card.matched">
         <div class="card-front">
-          <img [src]="card.image" [alt]="card.name">
+          <img 
+          *ngIf="card.flipped || card.matched; else back"
+          [src]="card.image"
+          [alt]="card.name"
+        />
+
+        <ng-template #back>
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="pokeball">
+        </ng-template>
+
         </div>
         <div class="card-back">
           <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="pokeball">

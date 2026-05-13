@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PokemonService } from '../../../pokemon-api';
+import { Auth } from '@angular/fire/auth';
+import { Firestore, doc, updateDoc, increment } from '@angular/fire/firestore';
 
 interface Card {
   id: number;
@@ -27,7 +29,9 @@ export class GameComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private firestore: Firestore,
+    private auth: Auth
   ) {}
 
   ngOnInit() {
@@ -82,6 +86,17 @@ flipCard(card: Card) {
 }
 }
 
+async updateSinglePlayerStats() {
+  const user = this.auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(this.firestore, `users/${user.uid}`);
+
+  await updateDoc(userRef, {
+    gamesPlayed: increment(1)
+  });
+}
+
 checkMatch() {
   setTimeout(() => {
     const [card1, card2] = this.flippedCards;
@@ -92,6 +107,7 @@ checkMatch() {
       this.matches++;
 
       if(this.matches === 8) {
+        this.updateSinglePlayerStats();
         alert(`You won! Total moves: ${this.moves}`);
       }
     } else {

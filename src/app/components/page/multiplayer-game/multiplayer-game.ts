@@ -3,6 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PokemonService } from '../../../pokemon-api';
 
+import {
+  Firestore, 
+  doc,
+  updateDoc,
+  increment,
+  arrayUnion
+} from '@angular/fire/firestore';
+
+import { Auth } from '@angular/fire/auth';
+
+
 interface Card {
   id: number;
   name: string;
@@ -43,7 +54,9 @@ export class MultiplayerGameComponent implements OnInit {
 
   constructor(
     private pokemonService: PokemonService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private firestore: Firestore,
+    private auth: Auth
   ) {}
 
   ngOnInit() {
@@ -149,18 +162,65 @@ export class MultiplayerGameComponent implements OnInit {
     this.players[this.currentPlayerIndex].isActive = true;
   }
 
-  endGame() {
+  async endGame() {
     this.gameOver = true;
+  
     const maxScore = Math.max(...this.players.map(p => p.score));
-    const winners = this.players.filter(p => p.score === maxScore);
-    
+  
+    const winners = this.players.filter(
+      p => p.score === maxScore
+    );
+  
     if (winners.length === 1) {
-      alert(`${winners[0].name} wins with ${maxScore} matches!`);
+  
+      const winner = winners[0];
+  
+      alert(`${winner.name} wins with ${maxScore} matches!`);
+  
+      await this.updatePlayerStats(winner.name);
+  
     } else {
+  
       const winnerNames = winners.map(w => w.name).join(' and ');
+  
       alert(`It's a tie! ${winnerNames} both scored ${maxScore} matches!`);
     }
   }
+  async updatePlayerStats(winnerName: string) {
+    const currentUser = this.auth.currentUser;
+    
+    if (!currentUser) return;
+
+    const userRef = doc(this.firestore, `users/${currentUser.uid}`);
+
+    const losers = this.players 
+    .filter(p => p.name !== winnerName)
+    .map(p => p.name);
+
+    const me = this.players[0];
+
+
+
+    const didWin = me.name === winnerName;
+
+  
+
+  await updateDoc(userRef, {
+    gamesPlayed: increment(1),
+
+    wins: didWin ? increment(1) : increment(0),
+
+    losses: didWin ? increment(0) : increment(1),
+
+    beatenPlayers: didWin
+      ? arrayUnion(...losers)
+      : arrayUnion(),
+
+    lostToPlayers: !didWin
+      ? arrayUnion(winnerName)
+      : arrayUnion()
+  });
+}
 
   resetGame() {
     this.gameStarted = false;
